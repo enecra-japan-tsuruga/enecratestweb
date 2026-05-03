@@ -14,107 +14,34 @@
   --text:#e8e4d8;--muted:rgba(232,228,216,0.45);--muted2:rgba(232,228,216,0.25);
   --tag-bg:rgba(200,245,66,0.08);--tag-border:rgba(200,245,66,0.25);
 }
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-weight:300;overflow-x:hidden;}
+html,body{margin:0;padding:0;overflow:hidden;background:#0a0a08;}
 
-/* ─── TOP ─── */
-#top{position:fixed;inset:0;background:#0a0a08;z-index:100;overflow:hidden;cursor:crosshair;}
+/* ── THREE.JS CANVAS ── */
+#three-canvas{position:fixed;inset:0;z-index:0;}
+
+/* ── TOP OVERLAY ── */
+#top{position:fixed;inset:0;z-index:10;pointer-events:none;}
+#top.interactive{pointer-events:auto;}
 #top.gone{display:none;}
 
-.stars-layer{position:absolute;inset:0;}
-.stars-layer::before{content:'';position:absolute;inset:0;background:
-  radial-gradient(1px 1px at 8% 12%,rgba(232,228,216,.9) 0%,transparent 100%),
-  radial-gradient(1px 1px at 22% 38%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 35% 8%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 48% 65%,rgba(232,228,216,.7) 0%,transparent 100%),
-  radial-gradient(1px 1px at 62% 22%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 75% 55%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 88% 80%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1px 1px at 12% 75%,rgba(232,228,216,.7) 0%,transparent 100%),
-  radial-gradient(1px 1px at 30% 50%,rgba(232,228,216,.4) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 55% 40%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 70% 88%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1px 1px at 4% 45%,rgba(232,228,216,.4) 0%,transparent 100%),
-  radial-gradient(1px 1px at 40% 80%,rgba(232,228,216,.7) 0%,transparent 100%),
-  radial-gradient(1px 1px at 82% 14%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 18% 4%,rgba(232,228,216,.9) 0%,transparent 100%),
-  radial-gradient(1px 1px at 60% 72%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1px 1px at 92% 38%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1px 1px at 28% 92%,rgba(232,228,216,.7) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 50% 28%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 85% 68%,rgba(232,228,216,.4) 0%,transparent 100%),
-  radial-gradient(1px 1px at 95% 5%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1px 1px at 3% 90%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1px 1px at 44% 18%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 66% 95%,rgba(232,228,216,.4) 0%,transparent 100%),
-  radial-gradient(1px 1px at 78% 32%,rgba(232,228,216,.7) 0%,transparent 100%);
-  animation:tw1 6s ease-in-out infinite;}
-.stars-layer::after{content:'';position:absolute;inset:0;background:
-  radial-gradient(1px 1px at 15% 60%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1px 1px at 33% 25%,rgba(232,228,216,.7) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 52% 85%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1px 1px at 68% 10%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 80% 50%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1px 1px at 95% 75%,rgba(232,228,216,.7) 0%,transparent 100%),
-  radial-gradient(1px 1px at 7% 30%,rgba(232,228,216,.6) 0%,transparent 100%),
-  radial-gradient(1.5px 1.5px at 25% 70%,rgba(232,228,216,.4) 0%,transparent 100%),
-  radial-gradient(1px 1px at 42% 45%,rgba(232,228,216,.9) 0%,transparent 100%),
-  radial-gradient(1px 1px at 57% 15%,rgba(232,228,216,.5) 0%,transparent 100%),
-  radial-gradient(1px 1px at 73% 78%,rgba(232,228,216,.8) 0%,transparent 100%),
-  radial-gradient(1px 1px at 90% 22%,rgba(232,228,216,.6) 0%,transparent 100%);
-  animation:tw1 4s ease-in-out infinite reverse;}
-@keyframes tw1{0%,100%{opacity:.5}50%{opacity:1}}
-
-.nebula{position:absolute;inset:0;background:
-  radial-gradient(ellipse 60% 40% at 50% 50%,rgba(200,245,66,.05) 0%,transparent 70%),
-  radial-gradient(ellipse 40% 60% at 30% 40%,rgba(66,245,200,.03) 0%,transparent 70%);
-  animation:nebPulse 8s ease-in-out infinite;}
-@keyframes nebPulse{0%,100%{opacity:.6}50%{opacity:1}}
-
-.uni-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-.uni-line{stroke-width:.5;stroke-dasharray:3 10;opacity:.2;transition:opacity .3s;}
-
-.uni-nodes{position:absolute;inset:0;}
-.uni-node{position:absolute;transform:translate(-50%,-50%);text-align:center;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
-.uni-node:hover{transform:translate(-50%,-50%) scale(1.25);}
-.uni-node.clicked{animation:nodeClick .4s ease;}
-@keyframes nodeClick{0%{transform:translate(-50%,-50%) scale(1)}30%{transform:translate(-50%,-50%) scale(.85)}60%{transform:translate(-50%,-50%) scale(1.3)}100%{transform:translate(-50%,-50%) scale(1)}}
-
-.n-works {top:13%;left:50%;animation:fl1 9s ease-in-out infinite;}
-.n-world {top:50%;left:84%;animation:fl2 11s ease-in-out infinite;}
-.n-learn {top:84%;left:50%;animation:fl3 10s ease-in-out infinite;}
-.n-partners{top:50%;left:16%;animation:fl4 8s ease-in-out infinite;}
-@keyframes fl1{0%,100%{top:13%;left:50%}33%{top:10%;left:53%}66%{top:15%;left:47%}}
-@keyframes fl2{0%,100%{top:50%;left:84%}33%{top:44%;left:82%}66%{top:56%;left:86%}}
-@keyframes fl3{0%,100%{top:84%;left:50%}33%{top:87%;left:54%}66%{top:81%;left:46%}}
-@keyframes fl4{0%,100%{top:50%;left:16%}33%{top:56%;left:18%}66%{top:44%;left:14%}}
-
-.ndot{width:18px;height:18px;border-radius:50%;margin:0 auto 10px;transition:box-shadow .3s,transform .3s;}
-.uni-node:hover .ndot{transform:scale(1.4);}
-.nlabel{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;font-weight:700;text-transform:uppercase;transition:letter-spacing .3s;}
-.uni-node:hover .nlabel{letter-spacing:.25em;}
-.nsub{font-size:.6rem;color:var(--muted);margin-top:3px;letter-spacing:.05em;}
-.n-works .ndot,.n-learn .ndot{background:var(--accent);box-shadow:0 0 20px var(--accent);}
-.n-works .nlabel,.n-learn .nlabel{color:var(--accent);}
-.n-world .ndot{background:var(--accent2);box-shadow:0 0 20px var(--accent2);}
-.n-world .nlabel{color:var(--accent2);}
-.n-partners .ndot{background:var(--accent3);box-shadow:0 0 20px var(--accent3);}
-.n-partners .nlabel{color:var(--accent3);}
-
-.uni-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;pointer-events:none;}
-.uni-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5.5rem);letter-spacing:.35em;color:var(--accent);text-shadow:0 0 60px rgba(200,245,66,.5);animation:logoPulse 4s ease-in-out infinite;}
-@keyframes logoPulse{0%,100%{text-shadow:0 0 40px rgba(200,245,66,.3),0 0 80px rgba(200,245,66,.1)}50%{text-shadow:0 0 80px rgba(200,245,66,.7),0 0 140px rgba(200,245,66,.3),0 0 200px rgba(200,245,66,.1)}}
-.uni-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;margin:.5rem auto 0;box-shadow:0 0 20px var(--accent);animation:logoPulse 4s ease-in-out infinite;}
-.uni-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--muted2);text-transform:uppercase;animation:hint 3s ease-in-out infinite;white-space:nowrap;}
+.uni-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:rgba(232,228,216,.25);text-transform:uppercase;animation:hint 3s ease-in-out infinite;white-space:nowrap;pointer-events:none;}
 @keyframes hint{0%,100%{opacity:.2}50%{opacity:.6}}
 
-/* Ripple */
-.ripple{position:absolute;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);animation:rippleAnim .8s ease-out forwards;}
-@keyframes rippleAnim{0%{transform:translate(-50%,-50%) scale(0);opacity:.6}100%{transform:translate(-50%,-50%) scale(4);opacity:0}}
+/* Node labels - positioned by JS */
+.node-label{position:absolute;text-align:center;cursor:pointer;transform:translate(-50%,-50%);pointer-events:auto;transition:opacity .3s;}
+.node-label:hover .ndot{transform:scale(1.4);}
+.ndot{width:0;height:0;margin:0 auto 8px;transition:transform .3s;}
+.nlabel{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase;transition:letter-spacing .3s;text-shadow:0 0 20px currentColor;}
+.node-label:hover .nlabel{letter-spacing:.3em;}
+.nsub{font-size:.58rem;color:rgba(232,228,216,.35);margin-top:3px;letter-spacing:.05em;}
 
-/* ─── NAV ─── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:none;justify-content:space-between;align-items:center;padding:1.4rem 3rem;border-bottom:1px solid var(--line);background:rgba(10,10,8,.92);backdrop-filter:blur(20px);transform:translateY(-100%);transition:transform .4s cubic-bezier(.16,1,.3,1);}
-nav.show{display:flex;transform:translateY(0);}
+/* ── PAGES ── */
+#pages{position:fixed;inset:0;z-index:20;display:none;overflow-y:auto;background:var(--bg);}
+#pages.show{display:block;}
+body.page-mode{overflow:auto;}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;border-bottom:1px solid var(--line);background:rgba(10,10,8,.95);backdrop-filter:blur(20px);}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.15em;color:var(--accent);cursor:pointer;transition:letter-spacing .3s;}
 .logo:hover{letter-spacing:.25em;}
 .logo span{color:var(--text);}
@@ -123,12 +50,12 @@ nav.show{display:flex;transform:translateY(0);}
 .nav-links li:last-child a{border-right:1px solid var(--line);}
 .nav-links li a:hover,.nav-links li a.active{color:var(--accent);background:var(--tag-bg);}
 
-/* ─── PAGES ─── */
-.page{display:none;padding-top:72px;min-height:100vh;}
+/* Page content */
+.page{display:none;min-height:100vh;}
 .page.show{display:block;}
 
 /* Hero */
-.hero,.world-hero,.learn-hero,.partners-hero{padding:8rem 3rem 5rem;position:relative;border-bottom:1px solid var(--line);overflow:hidden;}
+.hero,.world-hero,.learn-hero,.partners-hero{padding:6rem 3rem 5rem;position:relative;border-bottom:1px solid var(--line);overflow:hidden;}
 .hero-eyebrow{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;transform:translateY(20px);transition:all .6s .1s;}
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,7.5rem);line-height:.92;letter-spacing:.02em;margin-bottom:2rem;opacity:0;transform:translateY(30px);transition:all .6s .2s;}
 .hero-sub{font-size:.85rem;color:var(--muted);max-width:460px;line-height:1.9;letter-spacing:.04em;opacity:0;transform:translateY(20px);transition:all .6s .35s;}
@@ -138,7 +65,7 @@ nav.show{display:flex;transform:translateY(0);}
 .hero-title .acc3{color:var(--accent3);}
 .hero-bg-num{position:absolute;right:1rem;top:4rem;font-family:'Bebas Neue',sans-serif;font-size:20rem;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;}
 
-/* Scroll reveal */
+/* Reveal */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s,transform .7s;}
@@ -174,7 +101,7 @@ nav.show{display:flex;transform:translateY(0);}
 /* Modal */
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:2rem;}
 .modal.open{display:flex;}
-.modal-box{background:#111110;border:1px solid rgba(255,255,255,.1);max-width:680px;width:100%;max-height:85vh;overflow-y:auto;position:relative;padding:3rem;transform:scale(.95);transition:transform .3s cubic-bezier(.34,1.56,.64,1);animation:modalIn .35s cubic-bezier(.34,1.56,.64,1) forwards;}
+.modal-box{background:#111110;border:1px solid rgba(255,255,255,.1);max-width:680px;width:100%;max-height:85vh;overflow-y:auto;position:relative;padding:3rem;animation:modalIn .35s cubic-bezier(.34,1.56,.64,1) forwards;}
 @keyframes modalIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
 .modal-close{position:absolute;top:1.5rem;right:1.5rem;background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--muted);font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.15em;padding:.35rem .8rem;cursor:pointer;text-transform:uppercase;transition:all .2s;}
 .modal-close:hover{border-color:var(--accent);color:var(--accent);}
@@ -204,10 +131,8 @@ nav.show{display:flex;transform:translateY(0);}
 .world-specs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;padding:1.5rem;border:1px solid var(--line);background:var(--bg3);}
 .spec-item label{font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);display:block;margin-bottom:.3rem;}
 .spec-item span{font-size:.82rem;}
-.dl-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2rem;background:var(--accent);color:#0a0a08;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .25s;width:fit-content;position:relative;overflow:hidden;}
-.dl-btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.2);transform:translateX(-100%);transition:transform .3s;}
-.dl-btn:hover::after{transform:translateX(0);}
-.dl-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(200,245,66,.3);}
+.dl-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2rem;background:var(--accent);color:#0a0a08;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .25s;width:fit-content;}
+.dl-btn:hover{background:#d4fc50;transform:translateY(-3px);box-shadow:0 8px 30px rgba(200,245,66,.3);}
 .addon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));border-top:1px solid var(--line);}
 .addon-card{padding:2rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background .2s;}
 .addon-card:hover{background:rgba(66,245,200,.03);}
@@ -273,7 +198,7 @@ footer p{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted2)
 @media(max-width:768px){
   nav{padding:1rem 1.5rem;}
   .nav-links li a{padding:.4rem .7rem;font-size:.55rem;}
-  .hero,.world-hero,.learn-hero,.partners-hero{padding:6rem 1.5rem 3rem;}
+  .hero,.world-hero,.learn-hero,.partners-hero{padding:5rem 1.5rem 3rem;}
   .hero-bg-num{font-size:8rem;}
   .filter-bar{padding:1rem 1.2rem;}
   .works-grid{grid-template-columns:1fr;}
@@ -291,265 +216,489 @@ footer p{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted2)
   .steps{grid-template-columns:1fr;}
   .step{border-right:none;border-bottom:1px solid var(--line);}
   footer{flex-direction:column;gap:.8rem;text-align:center;}
-  .n-world{left:88%;}
-  .n-partners{left:10%;}
-  .nsub{display:none;}
 }
+
+/* Page transition overlay */
+#transition-overlay{position:fixed;inset:0;z-index:500;background:#0a0a08;opacity:0;pointer-events:none;transition:opacity .4s;}
+#transition-overlay.in{opacity:1;pointer-events:auto;}
 </style>
 </head>
 <body>
 
-<!-- TOP -->
-<div id="top">
-  <div class="stars-layer"></div>
-  <div class="nebula"></div>
-  <svg class="uni-svg">
-    <line class="uni-line" id="l-works"    x1="50%" y1="50%" x2="50%" y2="13%" stroke="#c8f542"/>
-    <line class="uni-line" id="l-world"    x1="50%" y1="50%" x2="84%" y2="50%" stroke="#42f5c8"/>
-    <line class="uni-line" id="l-learn"    x1="50%" y1="50%" x2="50%" y2="84%" stroke="#c8f542"/>
-    <line class="uni-line" id="l-partners" x1="50%" y1="50%" x2="16%" y2="50%" stroke="#f5a342"/>
-  </svg>
-  <div class="uni-nodes">
-    <div class="uni-node n-works"    id="node-works"    onclick="goPage('works')">   <div class="ndot"></div><div class="nlabel">WORKS</div>   <div class="nsub">実績・記録</div></div>
-    <div class="uni-node n-world"    id="node-world"    onclick="goPage('world')">   <div class="ndot"></div><div class="nlabel">WORLD</div>   <div class="nsub">Bedrockワールド</div></div>
-    <div class="uni-node n-learn"    id="node-learn"    onclick="goPage('learn')">   <div class="ndot"></div><div class="nlabel">LEARN</div>   <div class="nsub">プログラム設計</div></div>
-    <div class="uni-node n-partners" id="node-partners" onclick="goPage('partners')"><div class="ndot"></div><div class="nlabel">PARTNERS</div><div class="nsub">一緒につくる</div></div>
-  </div>
-  <div class="uni-center">
-    <div class="uni-logo">ENECLA</div>
-    <div class="uni-dot"></div>
-  </div>
-  <div class="uni-hint">ノードをクリックして探索する</div>
+<!-- THREE.JS CANVAS -->
+<canvas id="three-canvas"></canvas>
+
+<!-- TOP OVERLAY (node labels) -->
+<div id="top" class="interactive">
+  <div id="node-works"    class="node-label" onclick="goPage('works')"   ><div class="ndot"></div><div class="nlabel" style="color:#c8f542;">WORKS</div>   <div class="nsub">実績・記録</div></div>
+  <div id="node-world"    class="node-label" onclick="goPage('world')"   ><div class="ndot"></div><div class="nlabel" style="color:#42f5c8;">WORLD</div>   <div class="nsub">Bedrockワールド</div></div>
+  <div id="node-learn"    class="node-label" onclick="goPage('learn')"   ><div class="ndot"></div><div class="nlabel" style="color:#c8f542;">LEARN</div>   <div class="nsub">プログラム設計</div></div>
+  <div id="node-partners" class="node-label" onclick="goPage('partners')"><div class="ndot"></div><div class="nlabel" style="color:#f5a342;">PARTNERS</div><div class="nsub">一緒につくる</div></div>
+  <div class="uni-hint">クリックして探索する</div>
 </div>
 
-<!-- NAV -->
-<nav id="nav">
-  <div class="logo" onclick="goPage('top')">ENECLA<span>.works</span></div>
-  <ul class="nav-links">
-    <li><a href="#" id="nav-works"    onclick="goPage('works');return false;">WORKS</a></li>
-    <li><a href="#" id="nav-world"    onclick="goPage('world');return false;">WORLD</a></li>
-    <li><a href="#" id="nav-learn"    onclick="goPage('learn');return false;">LEARN</a></li>
-    <li><a href="#" id="nav-partners" onclick="goPage('partners');return false;">PARTNERS</a></li>
-  </ul>
-</nav>
+<!-- TRANSITION OVERLAY -->
+<div id="transition-overlay"></div>
 
-<!-- WORKS -->
-<div class="page" id="page-works">
-  <section class="hero">
-    <div class="hero-bg-num">25</div>
-    <p class="hero-eyebrow">Tsuruga, Fukui — 2022—</p>
-    <h1 class="hero-title">ENECLA<br><span class="acc">WORKS</span></h1>
-    <p class="hero-sub">つくったものの記録。</p>
-  </section>
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">ALL</button>
-    <button class="filter-btn" data-filter="program">PROGRAM</button>
-    <button class="filter-btn" data-filter="media">MEDIA / 登壇</button>
-    <button class="filter-btn" data-filter="partner">PARTNER</button>
-  </div>
-  <main class="works-grid">
-    <article class="work-card type-program reveal" data-cat="program" data-title="エネルギー探究プログラム 全8回シリーズ" data-type="Program" data-year="2024" data-place="福井県敦賀市" data-tags="再エネ,小中学生,対話型" data-body="再エネ・原子力・送電。産業現場の構造をそのままワールドに実装し、体験させる。&#10;&#10;答えを教えない設計で、全8回を通じて参加者が自ら問いを立てる。">
-      <div class="card-num">01</div><p class="card-type">Program</p>
-      <h2 class="card-title">エネルギー探究プログラム<br>全8回シリーズ</h2>
-      <p class="card-desc">再エネ・原子力・送電。産業現場の構造をそのままワールドに実装し、体験させる。</p>
-      <div class="card-tags"><span class="tag">再エネ</span><span class="tag">小中学生</span><span class="tag">対話型</span></div>
-      <div class="card-meta"><span>2024</span><span>福井県敦賀市</span></div>
-    </article>
-    <article class="work-card type-media reveal" data-cat="media" data-title="NHK福井「おはよう北陸」エネクラ特集" data-type="Media" data-year="2023" data-place="NHK福井" data-tags="NHK,テレビ,地域" data-body="取材を受けた。説明より、現場を見せる方が早かった。&#10;&#10;放送後、複数の自治体・企業から問い合わせが来た。">
-      <div class="card-num">02</div><p class="card-type">Media</p>
-      <h2 class="card-title">NHK福井「おはよう北陸」<br>エネクラ特集</h2>
-      <p class="card-desc">取材を受けた。説明より、現場を見せる方が早かった。</p>
-      <div class="card-tags"><span class="tag">NHK</span><span class="tag">テレビ</span><span class="tag">地域</span></div>
-      <div class="card-meta"><span>2023</span><span>NHK福井</span></div>
-    </article>
-    <article class="work-card type-partner reveal" data-cat="partner" data-title="関西電力株式会社 連携協定" data-type="Partner" data-year="2023—継続中" data-place="関西電力" data-tags="電力,官民連携,協定" data-body="発電所見学・専門家との共同設計・教材開発。現場と直接つなぐ。&#10;&#10;電力会社の技術者がワールド設計に参加。継続的な共同開発体制を構築中。">
-      <div class="card-num">03</div><p class="card-type">Partner</p>
-      <h2 class="card-title">関西電力株式会社<br>連携協定</h2>
-      <p class="card-desc">発電所見学・専門家との共同設計・教材開発。現場と直接つなぐ。</p>
-      <div class="card-tags"><span class="tag">電力</span><span class="tag">官民連携</span><span class="tag">協定</span></div>
-      <div class="card-meta"><span>2023—継続中</span><span>関西電力</span></div>
-    </article>
-    <article class="work-card type-program reveal" data-cat="program" data-title="GX人材育成 高校生アドバンスコース" data-type="Program" data-year="2024" data-place="福井県教育委員会 連携" data-tags="GX,高校生,政策立案" data-body="政策を議論し、提言する。答えを教えない設計。&#10;&#10;高校生が自らエネルギーミックスを設計しワールドに実装する。">
-      <div class="card-num">04</div><p class="card-type">Program</p>
-      <h2 class="card-title">GX人材育成<br>高校生アドバンスコース</h2>
-      <p class="card-desc">政策を議論し、提言する。答えを教えない設計。</p>
-      <div class="card-tags"><span class="tag">GX</span><span class="tag">高校生</span><span class="tag">政策立案</span></div>
-      <div class="card-meta"><span>2024</span><span>福井県教育委員会 連携</span></div>
-    </article>
-    <article class="work-card type-media reveal" data-cat="media" data-title="全国フォーラム 基調講演" data-type="登壇" data-year="2024" data-place="東京" data-tags="登壇,基調講演,全国" data-body="実践から語った。理論より先に手を動かしてきた話。&#10;&#10;「なぜMinecraftか」ではなく「なぜこの問いの立て方か」を軸に話した。">
-      <div class="card-num">05</div><p class="card-type">登壇</p>
-      <h2 class="card-title">全国フォーラム<br>基調講演</h2>
-      <p class="card-desc">実践から語った。理論より先に手を動かしてきた話。</p>
-      <div class="card-tags"><span class="tag">登壇</span><span class="tag">基調講演</span><span class="tag">全国</span></div>
-      <div class="card-meta"><span>2024</span><span>東京</span></div>
-    </article>
-    <article class="work-card type-partner reveal" data-cat="partner" data-title="敦賀市教育委員会 学校連携 採択" data-type="Partner" data-year="2024—継続中" data-place="敦賀市" data-tags="自治体,学校教育,採択" data-body="市内全小学校へ展開。制度の中に入って動く。&#10;&#10;単発の出前授業ではなく、カリキュラムとして正式採択。">
-      <div class="card-num">06</div><p class="card-type">Partner</p>
-      <h2 class="card-title">敦賀市教育委員会<br>学校連携 採択</h2>
-      <p class="card-desc">市内全小学校へ展開。制度の中に入って動く。</p>
-      <div class="card-tags"><span class="tag">自治体</span><span class="tag">学校教育</span><span class="tag">採択</span></div>
-      <div class="card-meta"><span>2024—継続中</span><span>敦賀市</span></div>
-    </article>
-  </main>
-  <div class="modal" id="modal">
-    <div class="modal-box">
-      <button class="modal-close" id="modal-close">CLOSE</button>
-      <p class="modal-type"><span id="modal-type-text"></span></p>
-      <h2 class="modal-title" id="modal-title"></h2>
-      <div class="modal-tags" id="modal-tags"></div>
-      <p class="modal-body" id="modal-body"></p>
-      <div class="modal-foot"><span id="modal-year"></span><span id="modal-place"></span></div>
+<!-- PAGES -->
+<div id="pages">
+  <nav>
+    <div class="logo" onclick="goTop()">ENECLA<span>.works</span></div>
+    <ul class="nav-links">
+      <li><a href="#" id="nav-works"    onclick="goPage('works');return false;">WORKS</a></li>
+      <li><a href="#" id="nav-world"    onclick="goPage('world');return false;">WORLD</a></li>
+      <li><a href="#" id="nav-learn"    onclick="goPage('learn');return false;">LEARN</a></li>
+      <li><a href="#" id="nav-partners" onclick="goPage('partners');return false;">PARTNERS</a></li>
+    </ul>
+  </nav>
+
+  <!-- WORKS -->
+  <div class="page" id="page-works">
+    <section class="hero">
+      <div class="hero-bg-num">25</div>
+      <p class="hero-eyebrow">Tsuruga, Fukui — 2022—</p>
+      <h1 class="hero-title">ENECLA<br><span class="acc">WORKS</span></h1>
+      <p class="hero-sub">つくったものの記録。</p>
+    </section>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">ALL</button>
+      <button class="filter-btn" data-filter="program">PROGRAM</button>
+      <button class="filter-btn" data-filter="media">MEDIA / 登壇</button>
+      <button class="filter-btn" data-filter="partner">PARTNER</button>
     </div>
-  </div>
-  <footer><div class="footer-logo" onclick="goPage('top')">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
-</div>
-
-<!-- WORLD -->
-<div class="page" id="page-world">
-  <section class="world-hero">
-    <div class="hero-bg-num">WLD</div>
-    <p class="hero-eyebrow">Minecraft Bedrock Edition</p>
-    <h1 class="hero-title">ENECLA<br><span class="acc2">WORLD</span></h1>
-    <p class="hero-sub">産業インフラを、ワールドとして実装した。</p>
-  </section>
-  <div class="world-download">
-    <div class="world-preview reveal-left"><div class="preview-ph"><div class="icon">⬡</div><p>WORLD PREVIEW</p><p style="margin-top:.5rem;font-size:.55rem;color:rgba(232,228,216,.2);">スクリーンショット・動画をここに配置</p></div></div>
-    <div class="world-info reveal-right">
-      <div>
-        <p class="world-version">Ver 1.2.0 — Bedrock Edition</p>
-        <h2 class="world-name">ENECLA<br>ENERGY WORLD</h2>
-        <p class="world-desc">敦賀をフィールドに、原子力・風力・太陽光・水力の発電施設を実装。企業が開発したアドオンが、そのままワールド内で動く。</p>
-        <div class="world-specs">
-          <div class="spec-item"><label>Platform</label><span>Bedrock Edition</span></div>
-          <div class="spec-item"><label>対象年齢</label><span>小学4年生〜</span></div>
-          <div class="spec-item"><label>ファイルサイズ</label><span>約 85 MB</span></div>
-          <div class="spec-item"><label>更新日</label><span>2025.04</span></div>
-          <div class="spec-item"><label>アドオン数</label><span>3 種類</span></div>
-          <div class="spec-item"><label>ライセンス</label><span>教育目的 無料</span></div>
-        </div>
+    <main class="works-grid">
+      <article class="work-card type-program reveal" data-cat="program" data-title="エネルギー探究プログラム 全8回シリーズ" data-type="Program" data-year="2024" data-place="福井県敦賀市" data-tags="再エネ,小中学生,対話型" data-body="再エネ・原子力・送電。産業現場の構造をそのままワールドに実装し、体験させる。&#10;&#10;答えを教えない設計で、全8回を通じて参加者が自ら問いを立てる。">
+        <div class="card-num">01</div><p class="card-type">Program</p>
+        <h2 class="card-title">エネルギー探究プログラム<br>全8回シリーズ</h2>
+        <p class="card-desc">再エネ・原子力・送電。産業現場の構造をそのままワールドに実装し、体験させる。</p>
+        <div class="card-tags"><span class="tag">再エネ</span><span class="tag">小中学生</span><span class="tag">対話型</span></div>
+        <div class="card-meta"><span>2024</span><span>福井県敦賀市</span></div>
+      </article>
+      <article class="work-card type-media reveal" data-cat="media" data-title="NHK福井「おはよう北陸」エネクラ特集" data-type="Media" data-year="2023" data-place="NHK福井" data-tags="NHK,テレビ,地域" data-body="取材を受けた。説明より、現場を見せる方が早かった。&#10;&#10;放送後、複数の自治体・企業から問い合わせが来た。">
+        <div class="card-num">02</div><p class="card-type">Media</p>
+        <h2 class="card-title">NHK福井「おはよう北陸」<br>エネクラ特集</h2>
+        <p class="card-desc">取材を受けた。説明より、現場を見せる方が早かった。</p>
+        <div class="card-tags"><span class="tag">NHK</span><span class="tag">テレビ</span><span class="tag">地域</span></div>
+        <div class="card-meta"><span>2023</span><span>NHK福井</span></div>
+      </article>
+      <article class="work-card type-partner reveal" data-cat="partner" data-title="関西電力株式会社 連携協定" data-type="Partner" data-year="2023—継続中" data-place="関西電力" data-tags="電力,官民連携,協定" data-body="発電所見学・専門家との共同設計・教材開発。現場と直接つなぐ。&#10;&#10;電力会社の技術者がワールド設計に参加。継続的な共同開発体制を構築中。">
+        <div class="card-num">03</div><p class="card-type">Partner</p>
+        <h2 class="card-title">関西電力株式会社<br>連携協定</h2>
+        <p class="card-desc">発電所見学・専門家との共同設計・教材開発。現場と直接つなぐ。</p>
+        <div class="card-tags"><span class="tag">電力</span><span class="tag">官民連携</span><span class="tag">協定</span></div>
+        <div class="card-meta"><span>2023—継続中</span><span>関西電力</span></div>
+      </article>
+      <article class="work-card type-program reveal" data-cat="program" data-title="GX人材育成 高校生アドバンスコース" data-type="Program" data-year="2024" data-place="福井県教育委員会 連携" data-tags="GX,高校生,政策立案" data-body="政策を議論し、提言する。答えを教えない設計。&#10;&#10;高校生が自らエネルギーミックスを設計しワールドに実装する。">
+        <div class="card-num">04</div><p class="card-type">Program</p>
+        <h2 class="card-title">GX人材育成<br>高校生アドバンスコース</h2>
+        <p class="card-desc">政策を議論し、提言する。答えを教えない設計。</p>
+        <div class="card-tags"><span class="tag">GX</span><span class="tag">高校生</span><span class="tag">政策立案</span></div>
+        <div class="card-meta"><span>2024</span><span>福井県教育委員会 連携</span></div>
+      </article>
+      <article class="work-card type-media reveal" data-cat="media" data-title="全国フォーラム 基調講演" data-type="登壇" data-year="2024" data-place="東京" data-tags="登壇,基調講演,全国" data-body="実践から語った。理論より先に手を動かしてきた話。&#10;&#10;「なぜMinecraftか」ではなく「なぜこの問いの立て方か」を軸に話した。">
+        <div class="card-num">05</div><p class="card-type">登壇</p>
+        <h2 class="card-title">全国フォーラム<br>基調講演</h2>
+        <p class="card-desc">実践から語った。理論より先に手を動かしてきた話。</p>
+        <div class="card-tags"><span class="tag">登壇</span><span class="tag">基調講演</span><span class="tag">全国</span></div>
+        <div class="card-meta"><span>2024</span><span>東京</span></div>
+      </article>
+      <article class="work-card type-partner reveal" data-cat="partner" data-title="敦賀市教育委員会 学校連携 採択" data-type="Partner" data-year="2024—継続中" data-place="敦賀市" data-tags="自治体,学校教育,採択" data-body="市内全小学校へ展開。制度の中に入って動く。&#10;&#10;単発の出前授業ではなく、カリキュラムとして正式採択。">
+        <div class="card-num">06</div><p class="card-type">Partner</p>
+        <h2 class="card-title">敦賀市教育委員会<br>学校連携 採択</h2>
+        <p class="card-desc">市内全小学校へ展開。制度の中に入って動く。</p>
+        <div class="card-tags"><span class="tag">自治体</span><span class="tag">学校教育</span><span class="tag">採択</span></div>
+        <div class="card-meta"><span>2024—継続中</span><span>敦賀市</span></div>
+      </article>
+    </main>
+    <div class="modal" id="modal">
+      <div class="modal-box">
+        <button class="modal-close" id="modal-close">CLOSE</button>
+        <p class="modal-type"><span id="modal-type-text"></span></p>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <div class="modal-tags" id="modal-tags"></div>
+        <p class="modal-body" id="modal-body"></p>
+        <div class="modal-foot"><span id="modal-year"></span><span id="modal-place"></span></div>
       </div>
-      <a href="#" class="dl-btn"><span>↓</span> .mcworld をダウンロード</a>
     </div>
+    <footer><div class="footer-logo" onclick="goTop()">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
   </div>
-  <div class="section-label"><span>同梱アドオン — Included Add-ons</span></div>
-  <div class="addon-grid">
-    <div class="addon-card reveal"><div class="addon-icon">⚛</div><p class="addon-name">原子炉冷却システム</p><p class="addon-maker">提供：○○重工業株式会社</p><p class="addon-desc">実機設計をベースにした冷却ポンプ・制御棒システム。ゲーム内で操作できる状態で実装されている。</p></div>
-    <div class="addon-card reveal"><div class="addon-icon">⟳</div><p class="addon-name">洋上風力タービン</p><p class="addon-maker">提供：○○エナジー株式会社</p><p class="addon-desc">日本海沿岸を想定した洋上風力。風速・発電量をリアルタイムで表示する。</p></div>
-    <div class="addon-card reveal"><div class="addon-icon">◈</div><p class="addon-name">スマートグリッド制御盤</p><p class="addon-maker">提供：○○電機株式会社</p><p class="addon-desc">複数電源の需給バランスを管理するスマートグリッド。崩れると止まる。</p></div>
-    <div class="addon-card reveal" style="border:1px dashed rgba(66,245,200,.2);background:rgba(66,245,200,.02);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;"><p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:.8rem;">Your Add-on Here</p><button class="contact-btn" style="font-size:.58rem;padding:.6rem 1.2rem;" onclick="goPage('partners')">話しかける →</button></div>
+
+  <!-- WORLD -->
+  <div class="page" id="page-world">
+    <section class="world-hero">
+      <div class="hero-bg-num">WLD</div>
+      <p class="hero-eyebrow">Minecraft Bedrock Edition</p>
+      <h1 class="hero-title">ENECLA<br><span class="acc2">WORLD</span></h1>
+      <p class="hero-sub">産業インフラを、ワールドとして実装した。</p>
+    </section>
+    <div class="world-download">
+      <div class="world-preview reveal-left"><div class="preview-ph"><div class="icon">⬡</div><p>WORLD PREVIEW</p><p style="margin-top:.5rem;font-size:.55rem;color:rgba(232,228,216,.2);">スクリーンショット・動画をここに配置</p></div></div>
+      <div class="world-info reveal-right">
+        <div>
+          <p class="world-version">Ver 1.2.0 — Bedrock Edition</p>
+          <h2 class="world-name">ENECLA<br>ENERGY WORLD</h2>
+          <p class="world-desc">敦賀をフィールドに、原子力・風力・太陽光・水力の発電施設を実装。企業が開発したアドオンが、そのままワールド内で動く。</p>
+          <div class="world-specs">
+            <div class="spec-item"><label>Platform</label><span>Bedrock Edition</span></div>
+            <div class="spec-item"><label>対象年齢</label><span>小学4年生〜</span></div>
+            <div class="spec-item"><label>ファイルサイズ</label><span>約 85 MB</span></div>
+            <div class="spec-item"><label>更新日</label><span>2025.04</span></div>
+            <div class="spec-item"><label>アドオン数</label><span>3 種類</span></div>
+            <div class="spec-item"><label>ライセンス</label><span>教育目的 無料</span></div>
+          </div>
+        </div>
+        <a href="#" class="dl-btn"><span>↓</span> .mcworld をダウンロード</a>
+      </div>
+    </div>
+    <div class="section-label"><span>同梱アドオン — Included Add-ons</span></div>
+    <div class="addon-grid">
+      <div class="addon-card reveal"><div class="addon-icon">⚛</div><p class="addon-name">原子炉冷却システム</p><p class="addon-maker">提供：○○重工業株式会社</p><p class="addon-desc">実機設計をベースにした冷却ポンプ・制御棒システム。ゲーム内で操作できる状態で実装されている。</p></div>
+      <div class="addon-card reveal"><div class="addon-icon">⟳</div><p class="addon-name">洋上風力タービン</p><p class="addon-maker">提供：○○エナジー株式会社</p><p class="addon-desc">日本海沿岸を想定した洋上風力。風速・発電量をリアルタイムで表示する。</p></div>
+      <div class="addon-card reveal"><div class="addon-icon">◈</div><p class="addon-name">スマートグリッド制御盤</p><p class="addon-maker">提供：○○電機株式会社</p><p class="addon-desc">複数電源の需給バランスを管理するスマートグリッド。崩れると止まる。</p></div>
+      <div class="addon-card reveal" style="border:1px dashed rgba(66,245,200,.2);background:rgba(66,245,200,.02);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;"><p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:.8rem;">Your Add-on Here</p><button class="contact-btn" style="font-size:.58rem;padding:.6rem 1.2rem;" onclick="goPage('partners')">話しかける →</button></div>
+    </div>
+    <footer><div class="footer-logo" onclick="goTop()">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
   </div>
-  <footer><div class="footer-logo" onclick="goPage('top')">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
+
+  <!-- LEARN -->
+  <div class="page" id="page-learn">
+    <section class="learn-hero">
+      <div class="hero-bg-num">LRN</div>
+      <p class="hero-eyebrow">Program Design — 全6回</p>
+      <h1 class="hero-title"><span class="acc">LEARN</span><br>WITH WORLD</h1>
+      <p class="hero-sub">ワールドを使った、問いの設計。</p>
+    </section>
+    <div class="section-label"><span>カリキュラム構成 — Program Overview</span></div>
+    <div>
+      <div class="curriculum-item reveal"><div class="curr-num">01</div><div><p class="curr-session">Session 01 — 導入</p><h3 class="curr-title">エネルギーってなんだろう？</h3><p class="curr-desc">答えを教えない。まずワールドに入って、自分で見つける。</p></div><div class="curr-meta"><p class="curr-duration">60 min</p><span class="curr-level level-basic">Basic</span></div></div>
+      <div class="curriculum-item reveal"><div class="curr-num">02</div><div><p class="curr-session">Session 02 — 発電の種類</p><h3 class="curr-title">どうやって電気をつくる？</h3><p class="curr-desc">4つの発電所を自分の足で回る。比較は、説明されるより見た方が早い。</p></div><div class="curr-meta"><p class="curr-duration">60 min</p><span class="curr-level level-basic">Basic</span></div></div>
+      <div class="curriculum-item reveal"><div class="curr-num">03</div><div><p class="curr-session">Session 03 — アドオン体験</p><h3 class="curr-title">原子炉を動かしてみよう</h3><p class="curr-desc">制御棒を操作し、冷却水の流れを止めてみる。安全設計の意味は、失敗してわかる。</p></div><div class="curr-meta"><p class="curr-duration">90 min</p><span class="curr-level level-adv">Advanced</span></div></div>
+      <div class="curriculum-item reveal"><div class="curr-num">04</div><div><p class="curr-session">Session 04 — 需給バランス</p><h3 class="curr-title">電気は貯められない？</h3><p class="curr-desc">バランスを崩すと、グリッドが落ちる。需給の緊張感を体で知る。</p></div><div class="curr-meta"><p class="curr-duration">90 min</p><span class="curr-level level-adv">Advanced</span></div></div>
+      <div class="curriculum-item reveal"><div class="curr-num">05</div><div><p class="curr-session">Session 05 — 地域とエネルギー</p><h3 class="curr-title">わたしたちのまちのエネルギー</h3><p class="curr-desc">敦賀のマップを歩く。地域に生きる人の話を、NPCを通じて聞く。</p></div><div class="curr-meta"><p class="curr-duration">60 min</p><span class="curr-level level-basic">Basic</span></div></div>
+      <div class="curriculum-item reveal"><div class="curr-num">06</div><div><p class="curr-session">Session 06 — カーボンニュートラル</p><h3 class="curr-title">2050年のエネルギーを設計する</h3><p class="curr-desc">チームで議論し、ワールドに建てる。正解のない問いに、手で答える。</p></div><div class="curr-meta"><p class="curr-duration">120 min</p><span class="curr-level level-adv">Advanced</span></div></div>
+    </div>
+    <div class="section-label"><span>使い方ガイド — Getting Started</span></div>
+    <div class="steps">
+      <div class="step reveal"><p class="step-num">STEP 01</p><h4>.mcworld をDL</h4><p>WORLDページからファイルを落とす。</p></div>
+      <div class="step reveal"><p class="step-num">STEP 02</p><h4>Bedrockで開く</h4><p>ダブルクリックで読み込まれる。</p></div>
+      <div class="step reveal"><p class="step-num">STEP 03</p><h4>動かしてみる</h4><p>説明より先に、入ってみる。</p></div>
+    </div>
+    <footer><div class="footer-logo" onclick="goTop()">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
+  </div>
+
+  <!-- PARTNERS -->
+  <div class="page" id="page-partners">
+    <section class="partners-hero">
+      <div class="hero-bg-num">PTR</div>
+      <p class="hero-eyebrow">Partners</p>
+      <h1 class="hero-title"><span class="acc3">TOGETHER</span></h1>
+      <p class="hero-sub">つくりたい人と、つくる。</p>
+    </section>
+    <div class="partners-pitch">
+      <div class="pitch-item reveal-left"><div class="pitch-num">01</div><h3 class="pitch-title">技術を、動く形で実装する</h3><p class="pitch-desc">原子炉・ポンプ・送電システム。自社の設備をアドオンとして開発し、ワールド内で実際に動かす。</p></div>
+      <div class="pitch-item reveal"><div class="pitch-num">02</div><h3 class="pitch-title">共同開発・実証事業として</h3><p class="pitch-desc">協賛契約・共同開発委託・補助金の共同申請。取引の形は問わない。</p></div>
+      <div class="pitch-item reveal-right"><div class="pitch-num">03</div><h3 class="pitch-title">現場と、直接つながる</h3><p class="pitch-desc">エネクラは仲介しない。電力会社・重工業・自治体と、テーブルを囲む場をつくる。</p></div>
+    </div>
+    <div class="section-label"><span>現在の協賛企業 — Current Partners</span></div>
+    <div class="partners-grid">
+      <div class="recruit-card"><div><h3>興味があれば、<span>話しかけてください。</span></h3><p>形から決めなくていい。まず話を聞かせてもらう。</p></div><a href="mailto:info@enecla.jp" class="contact-btn">話しかける →</a></div>
+      <div class="partner-card reveal"><p class="partner-tier tier-gold">Gold Partner</p><div class="partner-logo-area"><span class="logo-ph">○○重工業</span></div><h3 class="partner-name">○○重工業株式会社</h3><p class="partner-addon">提供アドオン：原子炉冷却システム</p><p class="partner-desc">原子力・プラント設備の設計・製造。冷却ポンプシステムのアドオンを共同開発。</p></div>
+      <div class="partner-card reveal"><p class="partner-tier tier-silver">Silver Partner</p><div class="partner-logo-area"><span class="logo-ph">○○エナジー</span></div><h3 class="partner-name">○○エナジー株式会社</h3><p class="partner-addon">提供アドオン：洋上風力タービン</p><p class="partner-desc">再生可能エネルギー開発。洋上風力タービンのアドオンを共同実装。</p></div>
+      <div class="partner-card reveal" style="border:1px dashed rgba(245,163,66,.2);background:rgba(245,163,66,.02);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:280px;"><p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:.8rem;">Next</p><a href="mailto:info@enecla.jp" class="contact-btn" style="font-size:.58rem;padding:.6rem 1.2rem;border-color:rgba(245,163,66,.4);color:var(--accent3);">話しかける →</a></div>
+    </div>
+    <footer><div class="footer-logo" onclick="goTop()">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
+  </div>
 </div>
 
-<!-- LEARN -->
-<div class="page" id="page-learn">
-  <section class="learn-hero">
-    <div class="hero-bg-num">LRN</div>
-    <p class="hero-eyebrow">Program Design — 全6回</p>
-    <h1 class="hero-title"><span class="acc">LEARN</span><br>WITH WORLD</h1>
-    <p class="hero-sub">ワールドを使った、問いの設計。</p>
-  </section>
-  <div class="section-label"><span>カリキュラム構成 — Program Overview</span></div>
-  <div>
-    <div class="curriculum-item reveal"><div class="curr-num">01</div><div><p class="curr-session">Session 01 — 導入</p><h3 class="curr-title">エネルギーってなんだろう？</h3><p class="curr-desc">答えを教えない。まずワールドに入って、自分で見つける。</p></div><div class="curr-meta"><p class="curr-duration">60 min</p><span class="curr-level level-basic">Basic</span></div></div>
-    <div class="curriculum-item reveal"><div class="curr-num">02</div><div><p class="curr-session">Session 02 — 発電の種類</p><h3 class="curr-title">どうやって電気をつくる？</h3><p class="curr-desc">4つの発電所を自分の足で回る。比較は、説明されるより見た方が早い。</p></div><div class="curr-meta"><p class="curr-duration">60 min</p><span class="curr-level level-basic">Basic</span></div></div>
-    <div class="curriculum-item reveal"><div class="curr-num">03</div><div><p class="curr-session">Session 03 — アドオン体験</p><h3 class="curr-title">原子炉を動かしてみよう</h3><p class="curr-desc">制御棒を操作し、冷却水の流れを止めてみる。安全設計の意味は、失敗してわかる。</p></div><div class="curr-meta"><p class="curr-duration">90 min</p><span class="curr-level level-adv">Advanced</span></div></div>
-    <div class="curriculum-item reveal"><div class="curr-num">04</div><div><p class="curr-session">Session 04 — 需給バランス</p><h3 class="curr-title">電気は貯められない？</h3><p class="curr-desc">バランスを崩すと、グリッドが落ちる。需給の緊張感を体で知る。</p></div><div class="curr-meta"><p class="curr-duration">90 min</p><span class="curr-level level-adv">Advanced</span></div></div>
-    <div class="curriculum-item reveal"><div class="curr-num">05</div><div><p class="curr-session">Session 05 — 地域とエネルギー</p><h3 class="curr-title">わたしたちのまちのエネルギー</h3><p class="curr-desc">敦賀のマップを歩く。地域に生きる人の話を、NPCを通じて聞く。</p></div><div class="curr-meta"><p class="curr-duration">60 min</p><span class="curr-level level-basic">Basic</span></div></div>
-    <div class="curriculum-item reveal"><div class="curr-num">06</div><div><p class="curr-session">Session 06 — カーボンニュートラル</p><h3 class="curr-title">2050年のエネルギーを設計する</h3><p class="curr-desc">チームで議論し、ワールドに建てる。正解のない問いに、手で答える。</p></div><div class="curr-meta"><p class="curr-duration">120 min</p><span class="curr-level level-adv">Advanced</span></div></div>
-  </div>
-  <div class="section-label"><span>使い方ガイド — Getting Started</span></div>
-  <div class="steps">
-    <div class="step reveal"><p class="step-num">STEP 01</p><h4>.mcworld をDL</h4><p>WORLDページからファイルを落とす。</p></div>
-    <div class="step reveal"><p class="step-num">STEP 02</p><h4>Bedrockで開く</h4><p>ダブルクリックで読み込まれる。</p></div>
-    <div class="step reveal"><p class="step-num">STEP 03</p><h4>動かしてみる</h4><p>説明より先に、入ってみる。</p></div>
-  </div>
-  <footer><div class="footer-logo" onclick="goPage('top')">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
-</div>
-
-<!-- PARTNERS -->
-<div class="page" id="page-partners">
-  <section class="partners-hero">
-    <div class="hero-bg-num">PTR</div>
-    <p class="hero-eyebrow">Partners</p>
-    <h1 class="hero-title"><span class="acc3">TOGETHER</span></h1>
-    <p class="hero-sub">つくりたい人と、つくる。</p>
-  </section>
-  <div class="partners-pitch">
-    <div class="pitch-item reveal-left"><div class="pitch-num">01</div><h3 class="pitch-title">技術を、動く形で実装する</h3><p class="pitch-desc">原子炉・ポンプ・送電システム。自社の設備をアドオンとして開発し、ワールド内で実際に動かす。技術広報の新しい形。</p></div>
-    <div class="pitch-item reveal"><div class="pitch-num">02</div><h3 class="pitch-title">共同開発・実証事業として</h3><p class="pitch-desc">協賛契約・共同開発委託・補助金の共同申請。取引の形は問わない。面白いと思ったら、話しかけてほしい。</p></div>
-    <div class="pitch-item reveal-right"><div class="pitch-num">03</div><h3 class="pitch-title">現場と、直接つながる</h3><p class="pitch-desc">エネクラは仲介しない。電力会社・重工業・自治体と、テーブルを囲む場をつくる。</p></div>
-  </div>
-  <div class="section-label"><span>現在の協賛企業 — Current Partners</span></div>
-  <div class="partners-grid">
-    <div class="recruit-card"><div><h3>興味があれば、<span>話しかけてください。</span></h3><p>形から決めなくていい。まず話を聞かせてもらう。</p></div><a href="mailto:info@enecla.jp" class="contact-btn">話しかける →</a></div>
-    <div class="partner-card reveal"><p class="partner-tier tier-gold">Gold Partner</p><div class="partner-logo-area"><span class="logo-ph">○○重工業</span></div><h3 class="partner-name">○○重工業株式会社</h3><p class="partner-addon">提供アドオン：原子炉冷却システム</p><p class="partner-desc">原子力・プラント設備の設計・製造。冷却ポンプシステムのアドオンを共同開発。</p></div>
-    <div class="partner-card reveal"><p class="partner-tier tier-silver">Silver Partner</p><div class="partner-logo-area"><span class="logo-ph">○○エナジー</span></div><h3 class="partner-name">○○エナジー株式会社</h3><p class="partner-addon">提供アドオン：洋上風力タービン</p><p class="partner-desc">再生可能エネルギー開発。洋上風力タービンのアドオンを共同実装。</p></div>
-    <div class="partner-card reveal" style="border:1px dashed rgba(245,163,66,.2);background:rgba(245,163,66,.02);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:280px;"><p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--muted2);text-transform:uppercase;margin-bottom:.8rem;">Next</p><a href="mailto:info@enecla.jp" class="contact-btn" style="font-size:.58rem;padding:.6rem 1.2rem;border-color:rgba(245,163,66,.4);color:var(--accent3);">話しかける →</a></div>
-  </div>
-  <footer><div class="footer-logo" onclick="goPage('top')">ENECLA<span>.works</span></div><p>© 2026 株式会社ENECRA</p></footer>
-</div>
-
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ── PAGE NAVIGATION ──
-function goPage(id) {
-  var top = document.getElementById('top');
-  var nav = document.getElementById('nav');
-  document.querySelectorAll('.page').forEach(function(p){p.className='page';});
-  document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
-  if (id === 'top') {
-    top.classList.remove('gone');
-    nav.className = 'nav';
-  } else {
-    top.classList.add('gone');
-    nav.className = 'nav show';
-    var pg = document.getElementById('page-'+id);
-    if (pg) {
-      pg.className = 'page show';
-      // trigger reveal after show
-      setTimeout(function(){ initReveal(); }, 50);
-    }
-    var na = document.getElementById('nav-'+id);
-    if (na) na.classList.add('active');
-    window.scrollTo(0,0);
+// ═══════════════════════════════════════
+//   THREE.JS UNIVERSE
+// ═══════════════════════════════════════
+var scene, camera, renderer, clock;
+var starField, particles;
+var nodes3D = [];
+var mouse = {x:0, y:0};
+var targetRotX = 0, targetRotY = 0;
+var currentRotX = 0, currentRotY = 0;
+var isTopActive = true;
+
+var NODE_DATA = [
+  {id:'works',    label:'WORKS',    color:0xc8f542, pos:[0, 2.5, 0]},
+  {id:'world',    label:'WORLD',    color:0x42f5c8, pos:[3.5, 0, -1]},
+  {id:'learn',    label:'LEARN',    color:0xc8f542, pos:[0, -2.5, 0.5]},
+  {id:'partners', label:'PARTNERS', color:0xf5a342, pos:[-3.5, 0, -0.5]},
+];
+
+function initThree() {
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 10);
+
+  renderer = new THREE.WebGLRenderer({canvas: document.getElementById('three-canvas'), antialias:true, alpha:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x0a0a08, 1);
+
+  clock = new THREE.Clock();
+
+  makeStars();
+  makeNebula();
+  makeCenter();
+  makeNodes();
+  makeLines();
+
+  window.addEventListener('resize', onResize);
+  document.addEventListener('mousemove', onMouseMove);
+  document.getElementById('three-canvas').addEventListener('click', onCanvasClick);
+
+  animate();
+}
+
+function makeStars() {
+  var geo = new THREE.BufferGeometry();
+  var count = 3000;
+  var pos = new Float32Array(count * 3);
+  var sizes = new Float32Array(count);
+  for (var i = 0; i < count; i++) {
+    pos[i*3]   = (Math.random()-0.5) * 200;
+    pos[i*3+1] = (Math.random()-0.5) * 200;
+    pos[i*3+2] = (Math.random()-0.5) * 200;
+    sizes[i] = Math.random() * 2 + 0.5;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  var mat = new THREE.PointsMaterial({
+    color: 0xe8e4d8,
+    size: 0.08,
+    transparent: true,
+    opacity: 0.7,
+    sizeAttenuation: true
+  });
+  starField = new THREE.Points(geo, mat);
+  scene.add(starField);
+}
+
+function makeNebula() {
+  // Subtle green glow sphere at center
+  var geo = new THREE.SphereGeometry(4, 32, 32);
+  var mat = new THREE.MeshBasicMaterial({
+    color: 0xc8f542,
+    transparent: true,
+    opacity: 0.025,
+    side: THREE.BackSide
+  });
+  var nebula = new THREE.Mesh(geo, mat);
+  scene.add(nebula);
+}
+
+function makeCenter() {
+  // Central glowing sphere (ENECLA)
+  var geo = new THREE.SphereGeometry(0.18, 32, 32);
+  var mat = new THREE.MeshBasicMaterial({color: 0xc8f542, transparent:true, opacity:0.95});
+  var sphere = new THREE.Mesh(geo, mat);
+  scene.add(sphere);
+
+  // Outer glow rings
+  for (var i = 0; i < 3; i++) {
+    var rGeo = new THREE.RingGeometry(0.25 + i*0.15, 0.27 + i*0.15, 64);
+    var rMat = new THREE.MeshBasicMaterial({color:0xc8f542, transparent:true, opacity:0.15-i*0.04, side:THREE.DoubleSide});
+    var ring = new THREE.Mesh(rGeo, rMat);
+    ring.rotation.x = Math.PI/2;
+    scene.add(ring);
   }
 }
 
-// ── RIPPLE on top page ──
-document.getElementById('top').addEventListener('click', function(e) {
-  if (e.target.closest('.uni-node')) return;
-  var r = document.createElement('div');
-  r.className = 'ripple';
-  r.style.cssText = 'position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(200,245,66,.4);pointer-events:none;left:'+e.clientX+'px;top:'+e.clientY+'px;transform:translate(-50%,-50%) scale(0);animation:rippleAnim .9s ease-out forwards;';
-  this.appendChild(r);
-  setTimeout(function(){r.remove();}, 900);
-});
+function makeNodes() {
+  NODE_DATA.forEach(function(nd) {
+    var group = new THREE.Group();
+    group.position.set(nd.pos[0], nd.pos[1], nd.pos[2]);
 
-// ── NODE CLICK BURST ──
-document.querySelectorAll('.uni-node').forEach(function(node){
-  node.addEventListener('click', function(){
-    this.classList.add('clicked');
-    var self = this;
-    setTimeout(function(){ self.classList.remove('clicked'); }, 400);
+    // Sphere
+    var geo = new THREE.SphereGeometry(0.12, 24, 24);
+    var mat = new THREE.MeshBasicMaterial({color: nd.color, transparent:true, opacity:0.95});
+    var sphere = new THREE.Mesh(geo, mat);
+    group.add(sphere);
+
+    // Glow halo
+    var hGeo = new THREE.SphereGeometry(0.22, 24, 24);
+    var hMat = new THREE.MeshBasicMaterial({color: nd.color, transparent:true, opacity:0.12, side:THREE.BackSide});
+    var halo = new THREE.Mesh(hGeo, hMat);
+    group.add(halo);
+
+    // Orbit ring around node
+    var oGeo = new THREE.RingGeometry(0.18, 0.2, 48);
+    var oMat = new THREE.MeshBasicMaterial({color: nd.color, transparent:true, opacity:0.3, side:THREE.DoubleSide});
+    var orbit = new THREE.Mesh(oGeo, oMat);
+    orbit.rotation.x = Math.random() * Math.PI;
+    orbit.rotation.y = Math.random() * Math.PI;
+    group.add(orbit);
+
+    group.userData = {id: nd.id, color: nd.color, basePos: nd.pos.slice(), orbit: orbit, halo: halo, sphere: sphere};
+    nodes3D.push(group);
+    scene.add(group);
   });
-});
+}
 
-// ── SCROLL REVEAL ──
+function makeLines() {
+  var center = new THREE.Vector3(0,0,0);
+  NODE_DATA.forEach(function(nd, i) {
+    var end = new THREE.Vector3(nd.pos[0], nd.pos[1], nd.pos[2]);
+    var geo = new THREE.BufferGeometry().setFromPoints([center, end]);
+    var mat = new THREE.LineBasicMaterial({
+      color: nd.color,
+      transparent: true,
+      opacity: 0.15
+    });
+    var line = new THREE.Line(geo, mat);
+    scene.add(line);
+  });
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  var t = clock.getElapsedTime();
+
+  if (!isTopActive) { renderer.render(scene, camera); return; }
+
+  // Smooth mouse parallax
+  targetRotY = mouse.x * 0.3;
+  targetRotX = mouse.y * 0.15;
+  currentRotX += (targetRotX - currentRotX) * 0.04;
+  currentRotY += (targetRotY - currentRotY) * 0.04;
+  scene.rotation.x = currentRotX;
+  scene.rotation.y = currentRotY;
+
+  // Stars slow rotation
+  starField.rotation.y = t * 0.01;
+  starField.rotation.x = t * 0.005;
+
+  // Node animations
+  nodes3D.forEach(function(g, i) {
+    var bp = g.userData.basePos;
+    // Breathing float
+    g.position.x = bp[0] + Math.sin(t * 0.4 + i * 1.3) * 0.25;
+    g.position.y = bp[1] + Math.cos(t * 0.35 + i * 0.9) * 0.3;
+    g.position.z = bp[2] + Math.sin(t * 0.3 + i * 1.7) * 0.15;
+    // Orbit ring rotation
+    g.userData.orbit.rotation.z = t * 0.8 + i;
+    g.userData.orbit.rotation.x = t * 0.5 + i * 0.7;
+    // Halo pulse
+    var pulse = 0.08 + Math.sin(t * 1.5 + i) * 0.04;
+    g.userData.halo.material.opacity = pulse;
+  });
+
+  renderer.render(scene, camera);
+}
+
+function onMouseMove(e) {
+  mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouse.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+
+  // Update node label positions
+  if (!isTopActive) return;
+  nodes3D.forEach(function(g) {
+    var pos = g.position.clone().project(camera);
+    var x = (pos.x * 0.5 + 0.5) * window.innerWidth;
+    var y = (-(pos.y * 0.5) + 0.5) * window.innerHeight;
+    // account for scene rotation
+    var el = document.getElementById('node-' + g.userData.id);
+    if (el) {
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+    }
+  });
+}
+
+function onCanvasClick(e) {
+  if (!isTopActive) return;
+  // Check if click hits a node (using screen-space proximity)
+  var mx = (e.clientX / window.innerWidth) * 2 - 1;
+  var my = -(e.clientY / window.innerHeight) * 2 + 1;
+  var raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera({x:mx,y:my}, camera);
+  var meshes = [];
+  nodes3D.forEach(function(g){ meshes.push(g.userData.sphere); });
+  var hits = raycaster.intersectObjects(meshes);
+  if (hits.length > 0) {
+    var hit = hits[0].object;
+    nodes3D.forEach(function(g){
+      if (g.userData.sphere === hit) goPage(g.userData.id);
+    });
+  }
+}
+
+function onResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// Initial label positions
+function updateLabelPositions() {
+  nodes3D.forEach(function(g) {
+    var pos = g.position.clone().project(camera);
+    var x = (pos.x * 0.5 + 0.5) * window.innerWidth;
+    var y = (-(pos.y * 0.5) + 0.5) * window.innerHeight;
+    var el = document.getElementById('node-' + g.userData.id);
+    if (el) { el.style.left = x + 'px'; el.style.top = y + 'px'; }
+  });
+}
+
+// ═══════════════════════════════════════
+//   PAGE NAVIGATION
+// ═══════════════════════════════════════
+var overlay = document.getElementById('transition-overlay');
+
+function goPage(id) {
+  overlay.classList.add('in');
+  setTimeout(function() {
+    isTopActive = false;
+    document.getElementById('top').classList.add('gone');
+    document.getElementById('pages').classList.add('show');
+    document.body.style.overflow = 'auto';
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('show');});
+    document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
+    var pg = document.getElementById('page-'+id);
+    if (pg) pg.classList.add('show');
+    var na = document.getElementById('nav-'+id);
+    if (na) na.classList.add('active');
+    document.getElementById('pages').scrollTop = 0;
+    setTimeout(function(){ initReveal(); }, 100);
+    overlay.classList.remove('in');
+  }, 400);
+}
+
+function goTop() {
+  overlay.classList.add('in');
+  setTimeout(function() {
+    isTopActive = true;
+    document.getElementById('top').classList.remove('gone');
+    document.getElementById('pages').classList.remove('show');
+    document.body.style.overflow = 'hidden';
+    overlay.classList.remove('in');
+    updateLabelPositions();
+  }, 400);
+}
+
+// ═══════════════════════════════════════
+//   SCROLL REVEAL
+// ═══════════════════════════════════════
 function initReveal() {
   var els = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  }, {threshold: 0.12});
-  els.forEach(function(el){ observer.observe(el); });
+  }, {threshold:0.1});
+  els.forEach(function(el){ obs.observe(el); });
 }
-initReveal();
 
-// ── WORKS FILTER ──
+// ═══════════════════════════════════════
+//   FILTER & MODAL
+// ═══════════════════════════════════════
 document.querySelectorAll('.filter-btn').forEach(function(btn){
   btn.addEventListener('click',function(){
     document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
@@ -561,7 +710,6 @@ document.querySelectorAll('.filter-btn').forEach(function(btn){
   });
 });
 
-// ── MODAL ──
 var modal = document.getElementById('modal');
 document.querySelectorAll('.work-card').forEach(function(card){
   card.addEventListener('click',function(){
@@ -581,17 +729,19 @@ document.querySelectorAll('.work-card').forEach(function(card){
     document.body.style.overflow='hidden';
   });
 });
-document.getElementById('modal-close').addEventListener('click',function(){modal.className='modal';document.body.style.overflow='';});
-modal.addEventListener('click',function(e){if(e.target===modal){modal.className='modal';document.body.style.overflow='';}});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){modal.className='modal';document.body.style.overflow='';}});
+document.getElementById('modal-close').addEventListener('click',function(){modal.className='modal';document.body.style.overflow='auto';});
+modal.addEventListener('click',function(e){if(e.target===modal){modal.className='modal';document.body.style.overflow='auto';}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){modal.className='modal';document.body.style.overflow='auto';}});
 
-// ── PARALLAX on top (mouse move) ──
-document.getElementById('top').addEventListener('mousemove', function(e){
-  var x = (e.clientX/window.innerWidth - .5) * 20;
-  var y = (e.clientY/window.innerHeight - .5) * 20;
-  document.querySelector('.stars-layer').style.transform = 'translate('+x*.3+'px,'+y*.3+'px)';
-  document.querySelector('.nebula').style.transform = 'translate('+x*.5+'px,'+y*.5+'px)';
-});
+// ═══════════════════════════════════════
+//   INIT
+// ═══════════════════════════════════════
+initThree();
+updateLabelPositions();
+// Continuously update label positions
+setInterval(function(){
+  if (isTopActive) updateLabelPositions();
+}, 16);
 </script>
 </body>
 </html>
